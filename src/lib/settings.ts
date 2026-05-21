@@ -1,6 +1,6 @@
 import { RemoteAccessMode, type AppSettings } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import { APP_NAME, APP_TAGLINE, DEFAULT_SUPPORT_EMAIL } from "@/lib/constants";
+import { APP_NAME, APP_TAGLINE, DEFAULT_ADMIN_EMAIL, DEFAULT_SUPPORT_EMAIL } from "@/lib/constants";
 import { parseCommaSeparatedList } from "@/lib/utils";
 
 function buildDefaultSettings(): AppSettings {
@@ -15,7 +15,7 @@ function buildDefaultSettings(): AppSettings {
     remoteAccessMode: RemoteAccessMode.NEW_TAB,
     sessionTimeoutMinutes: 480,
     brandingPrimaryColor: "#2563eb",
-    adminRoleMappings: "admin@queazified.co.uk",
+    adminRoleMappings: DEFAULT_ADMIN_EMAIL,
     createdAt: now,
     updatedAt: now,
   };
@@ -40,7 +40,7 @@ export function getAdminEmails(settings: Pick<AppSettings, "adminRoleMappings">)
     ...new Set(
       [
         ...parseCommaSeparatedList(settings.adminRoleMappings),
-        ...parseCommaSeparatedList(process.env.ADMIN_EMAILS ?? "admin@queazified.co.uk"),
+        ...parseCommaSeparatedList(process.env.ADMIN_EMAILS ?? DEFAULT_ADMIN_EMAIL),
       ].filter(Boolean),
     ),
   ];

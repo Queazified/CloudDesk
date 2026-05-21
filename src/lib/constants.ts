@@ -4,6 +4,7 @@ export const APP_NAME = "MyCloudDesk";
 export const APP_TAGLINE = "Access your Queazified cloud desktop";
 export const APP_DESCRIPTION =
   "Live cloud PC availability, remote access, occupancy history, and admin controls for Queazified users.";
+export const DEFAULT_ADMIN_EMAIL = "admin@queazified.co.uk";
 export const DEFAULT_SUPPORT_EMAIL = "support@queazified.co.uk";
 
 export const statusMeta: Record<
@@ -69,7 +70,7 @@ export const statusFilters = ["ALL", "AVAILABLE", "OCCUPIED", "OFFLINE", "MAINTE
 
 export const mockUsers = [
   {
-    email: "admin@queazified.co.uk",
+    email: DEFAULT_ADMIN_EMAIL,
     label: "Sign in as admin",
     helper: "Full admin access including cloud PC management and audit logs.",
   },

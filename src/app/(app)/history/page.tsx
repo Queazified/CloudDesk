@@ -65,7 +65,7 @@ export default async function HistoryPage({
             <input name="userEmail" defaultValue={filters.userEmail} placeholder="Search by user email" className="w-full rounded-xl border border-slate-300 px-3 py-2.5" />
           </label>
         ) : null}
-        <div className="lg:col-span-5 flex gap-3">
+        <div className="flex gap-3 lg:col-span-5">
           <button type="submit" className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">Apply filters</button>
           <a href="/history" className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-white">Clear</a>
         </div>

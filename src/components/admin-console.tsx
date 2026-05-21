@@ -259,7 +259,7 @@ export function AdminConsole({
                   <span>Maintenance or repair notes</span>
                   <textarea name="maintenanceNotes" defaultValue={cloudPc.maintenanceNotes ?? ""} rows={3} className="w-full rounded-xl border border-slate-300 px-3 py-2.5" />
                 </label>
-                <div className="md:col-span-2 flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 md:col-span-2">
                   <button type="submit" disabled={busyId === `/api/cloud-pcs/${cloudPc.id}`} className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60">
                     {busyId === `/api/cloud-pcs/${cloudPc.id}` ? "Saving..." : "Save changes"}
                   </button>

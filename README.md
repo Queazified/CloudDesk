@@ -72,6 +72,14 @@ cd myclouddesk
 npm install
 ```
 
+## 7. One-script install
+
+Run this from the project root to install dependencies, start PostgreSQL, apply schema, generate Prisma client, and seed sample data:
+
+```bash
+bash scripts/install.sh
+```
+
 ## 8. Environment variable setup
 
 ```bash
@@ -82,8 +90,16 @@ Update values in `.env` before running the app.
 
 ## 9. PostgreSQL setup using Docker Compose
 
+Use either command depending on your Docker setup:
+
 ```bash
 docker compose up -d
+```
+
+or
+
+```bash
+docker-compose up -d
 ```
 
 ## 10. Prisma migrate instructions

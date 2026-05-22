@@ -18,12 +18,13 @@ export function LoginButtons({
         email,
         callbackUrl: "/dashboard",
       });
-      // If signIn returned anything (didn't redirect), login failed
-      // Reset busy state so user can retry
+      // signIn() with redirect: true (default) behaves as follows:
+      // - If login succeeds: redirects and doesn't return (page unloads)
+      // - If login fails: returns an object with error/status info
+      // Therefore, if result is truthy, login failed and we should reset busy state
       if (result) {
         setBusyId(null);
       }
-      // If result is falsy/undefined, signIn redirected successfully
     } catch (error) {
       console.error("Mock login error:", error);
       setBusyId(null);
@@ -34,12 +35,13 @@ export function LoginButtons({
     setBusyId(providerId);
     try {
       const result = await signIn(providerId, { callbackUrl: "/dashboard" });
-      // If signIn returned anything (didn't redirect), login failed
-      // Reset busy state so user can retry
+      // signIn() with redirect: true (default) behaves as follows:
+      // - If login succeeds: redirects and doesn't return (page unloads)
+      // - If login fails: returns an object with error/status info
+      // Therefore, if result is truthy, login failed and we should reset busy state
       if (result) {
         setBusyId(null);
       }
-      // If result is falsy/undefined, signIn redirected successfully
     } catch (error) {
       console.error("SSO login error:", error);
       setBusyId(null);

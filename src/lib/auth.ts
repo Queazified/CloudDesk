@@ -8,6 +8,18 @@ import { Role } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { getAppSettings, getAdminEmails } from "@/lib/settings";
 
+function normalizeIssuerUrl(value: string) {
+  return value.trim().replace(/\/$/, "");
+}
+
+function getOauthHttpTimeoutMs() {
+  const raw = Number(process.env.OAUTH_HTTP_TIMEOUT_MS ?? "10000");
+  if (!Number.isFinite(raw) || raw < 1000) {
+    return 10000;
+  }
+  return Math.floor(raw);
+}
+
 async function syncUserRecord({
   email,
   name,
@@ -51,15 +63,20 @@ function buildGenericOidcProvider() {
     return null;
   }
 
+  const normalizedIssuer = normalizeIssuerUrl(issuer);
+
   return {
     id: "generic-oidc",
     name: process.env.GENERIC_OIDC_NAME ?? "Generic OIDC",
     type: "oauth",
-    wellKnown: `${issuer.replace(/\/$/, "")}/.well-known/openid-configuration`,
+    wellKnown: `${normalizedIssuer}/.well-known/openid-configuration`,
     clientId,
     clientSecret,
     idToken: true,
     checks: ["pkce", "state"],
+    httpOptions: {
+      timeout: getOauthHttpTimeoutMs(),
+    },
     profile(profile: Record<string, unknown>) {
       return {
         id: String(profile.sub ?? profile.email ?? crypto.randomUUID()),
@@ -138,11 +155,17 @@ if (process.env.AZURE_AD_CLIENT_ID && process.env.AZURE_AD_CLIENT_SECRET && proc
 }
 
 if (process.env.AUTHENTIK_CLIENT_ID && process.env.AUTHENTIK_CLIENT_SECRET && process.env.AUTHENTIK_ISSUER) {
+  const authentikIssuer = normalizeIssuerUrl(process.env.AUTHENTIK_ISSUER);
+
   providers.push(
     AuthentikProvider({
       clientId: process.env.AUTHENTIK_CLIENT_ID,
       clientSecret: process.env.AUTHENTIK_CLIENT_SECRET,
-      issuer: process.env.AUTHENTIK_ISSUER,
+      issuer: authentikIssuer,
+      wellKnown: `${authentikIssuer}/.well-known/openid-configuration`,
+      httpOptions: {
+        timeout: getOauthHttpTimeoutMs(),
+      },
     }),
   );
 }

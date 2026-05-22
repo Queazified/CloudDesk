@@ -4,7 +4,8 @@
   "private": true,
   "description": "MyCloudDesk is a simple cloud desktop access portal for Queazified users, providing live cloud PC availability, remote access links, occupancy history, and admin controls.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
+    "dev:turbopack": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

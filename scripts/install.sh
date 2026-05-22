@@ -90,7 +90,7 @@ if [ -f ".env" ] && grep -q '^NEXTAUTH_SECRET=replace-with-a-long-random-secret$
   generated_secret="$(generate_secret)"
 
   if [ -n "$generated_secret" ]; then
-    sed -i "s|^NEXTAUTH_SECRET=replace-with-a-long-random-secret$|NEXTAUTH_SECRET=${generated_secret}|" .env
+    perl -pi -e "s|^NEXTAUTH_SECRET=replace-with-a-long-random-secret\$|NEXTAUTH_SECRET=${generated_secret}|" .env
   else
     echo "Warning: Could not auto-generate NEXTAUTH_SECRET (openssl/node unavailable)."
     echo "Please set NEXTAUTH_SECRET manually in .env before production use."

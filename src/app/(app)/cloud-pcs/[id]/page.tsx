@@ -54,7 +54,9 @@ export default async function CloudPcDetailsPage({ params }: { params: Promise<{
             </div>
             <div>
               <dt className="font-medium text-slate-900">Remote access URL</dt>
-              <dd className="mt-1 break-all">{cloudPc.remoteUrl}</dd>
+              <dd className="mt-1 break-all">
+                {user.role === Role.ADMIN ? cloudPc.remoteUrl : "Hidden for standard users"}
+              </dd>
             </div>
             <div>
               <dt className="font-medium text-slate-900">Current session</dt>

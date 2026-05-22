@@ -61,7 +61,7 @@ MyCloudDesk is designed for `myclouddesk.queazified.co.uk` and focuses on the si
 Run this from the project root to install dependencies, start PostgreSQL, apply schema, generate Prisma client, and seed sample data:
 
 ```bash
-sudo apt install git && git clone https://github.com/Queazified/MyCloudDesk.git && cd MyCloudDesk && sudo bash scripts/install.sh
+sudo apt install git npm nodejs -y && git clone https://github.com/Queazified/MyCloudDesk.git && cd MyCloudDesk && sudo bash scripts/install.sh
 ```
 
 ## 7. Clone and install manually

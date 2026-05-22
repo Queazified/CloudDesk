@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Print a consistently formatted installer step header.
+# Arguments:
+#   $1 - Human-readable step message.
 print_step() {
   printf "\n==> %s\n" "$1"
 }
 
+# Ensure a required command is available on PATH.
+# Arguments:
+#   $1 - Command name to check.
+# Exits:
+#   1 when the command is missing.
 require_command() {
   if ! command -v "$1" >/dev/null 2>&1; then
     echo "Error: '$1' is required but not installed."
@@ -12,6 +20,9 @@ require_command() {
   fi
 }
 
+# Resolve which Docker Compose command style is available.
+# Returns:
+#   Prints 'docker compose', 'docker-compose', or an empty string if unavailable.
 build_compose_cmd() {
   if docker compose version >/dev/null 2>&1; then
     echo "docker compose"
@@ -26,6 +37,9 @@ build_compose_cmd() {
   echo ""
 }
 
+# Generate a random NEXTAUTH_SECRET value.
+# Returns:
+#   Base64 secret via stdout, or an empty string if generators are unavailable.
 generate_secret() {
   if command -v openssl >/dev/null 2>&1; then
     openssl rand -base64 48 | tr -d '\n'

@@ -40,6 +40,7 @@ MyCloudDesk is designed for `myclouddesk.queazified.co.uk` and focuses on the si
 ```text
 .
 ├── prisma/
+├── scripts/
 ├── src/
 │   ├── app/
 │   ├── components/
@@ -63,7 +64,15 @@ cd myclouddesk
 npm install
 ```
 
-## 7. Environment variable setup
+## 7. One-script install
+
+Run this from the project root to install dependencies, start PostgreSQL, apply schema, generate Prisma client, and seed sample data:
+
+```bash
+bash scripts/install.sh
+```
+
+## 8. Environment variable setup
 
 ```bash
 cp .env.example .env
@@ -71,13 +80,21 @@ cp .env.example .env
 
 Update values in `.env` before running the app.
 
-## 8. PostgreSQL setup using Docker Compose
+## 9. PostgreSQL setup using Docker Compose
+
+Use either command depending on your Docker setup:
 
 ```bash
 docker compose up -d
 ```
 
-## 9. Prisma migrate instructions
+or
+
+```bash
+docker-compose up -d
+```
+
+## 10. Prisma migrate instructions
 
 For local development, the fastest setup is:
 
@@ -92,7 +109,7 @@ If you prefer migration workflows, run:
 npx prisma migrate dev
 ```
 
-## 10. Seed database instructions
+## 11. Seed database instructions
 
 ```bash
 npm run db:seed
@@ -104,7 +121,7 @@ The seed creates:
 - `user@queazified.co.uk` — standard user
 - `QZ-CloudPC-01` to `QZ-CloudPC-05` with the requested statuses
 
-## 11. Run the development server
+## 12. Run the development server
 
 ```bash
 npm run dev
@@ -112,11 +129,11 @@ npm run dev
 
 Visit `http://localhost:3000`.
 
-## 12. How to use mock login mode
+## 13. How to use mock login mode
 
 Set `AUTH_ENABLE_MOCK=true` and keep the seeded users in the database. The login screen will show one-click buttons for the admin and standard user accounts.
 
-## 13. How to configure Microsoft Entra ID SSO
+## 14. How to configure Microsoft Entra ID SSO
 
 Set these environment variables:
 
@@ -130,7 +147,7 @@ Set the redirect URI in Entra ID to:
 https://myclouddesk.queazified.co.uk/api/auth/callback/azure-ad
 ```
 
-## 14. How to configure Authentik OIDC SSO
+## 15. How to configure Authentik OIDC SSO
 
 Set these environment variables:
 
@@ -144,27 +161,27 @@ Use this callback URL:
 https://myclouddesk.queazified.co.uk/api/auth/callback/authentik
 ```
 
-## 15. How to add cloud PCs
+## 16. How to add cloud PCs
 
 Admins can add cloud PCs from the **Admin** page by entering a name, remote access URL, status, group, and access rule.
 
-## 16. How to configure remote desktop URLs
+## 17. How to configure remote desktop URLs
 
 Each cloud PC stores a `remoteUrl`. Point this at an existing service such as Apache Guacamole, Windows 365, a Dev Box portal, noVNC, or another trusted remote desktop entry point.
 
-## 17. GitHub workflow explanation
+## 18. GitHub workflow explanation
 
 The CI workflow installs dependencies, runs Prisma generate, type checking, linting, tests, and the production build on every push and pull request.
 
-## 18. How to contribute
+## 19. How to contribute
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## 19. Security notes
+## 20. Security notes
 
 See [SECURITY.md](./SECURITY.md). Never commit `.env` files, and review remote access URLs carefully before deploying.
 
-## 20. Deployment notes and checklist for `myclouddesk.queazified.co.uk`
+## 21. Deployment notes and checklist for `myclouddesk.queazified.co.uk`
 
 - Use a managed PostgreSQL database.
 - Set `NEXTAUTH_URL=https://myclouddesk.queazified.co.uk`.

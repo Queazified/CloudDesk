@@ -123,8 +123,16 @@ The seed creates:
 
 ## 12. Run the development server
 
+For lower memory usage (recommended default):
+
 ```bash
 npm run dev
+```
+
+To opt into Turbopack on systems with more available memory:
+
+```bash
+npm run dev:turbopack
 ```
 
 Visit `http://localhost:3000`.
